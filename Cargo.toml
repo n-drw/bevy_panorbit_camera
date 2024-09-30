@@ -17,7 +17,7 @@ bevy = { version = "0.15.0-dev", default-features = false, features = [
 ] }
 
 [dev-dependencies]
-bevy = { version = "0.15-0-dev" }
+bevy = { version = "0.15.0-dev" }
 float-cmp = "0.10.0"
 
 [patch.crates-io.bevy]
