@@ -11,27 +11,14 @@ repository = "https://github.com/Plonq/bevy_panorbit_camera"
 homepage = "https://github.com/Plonq/bevy_panorbit_camera"
 readme = "README.md"
 
-[features]
-bevy_egui = ["dep:bevy_egui"]
-
 [dependencies]
-bevy = { version = "0.14", default-features = false, features = [
+bevy = { version = "0.15.0-dev", default-features = false, features = [
     "bevy_render",
 ] }
-bevy_egui = { version = "0.29", optional = true, default-features = false }
 
 [dev-dependencies]
-bevy = { version = "0.14" }
-float-cmp = "0.9.0"
-bevy_egui = { version = "0.29", default-features = false, features = [
-    "render",
-    "default_fonts",
-] }
+bevy = { version = "0.15-0-dev" }
+float-cmp = "0.10.0"
 
-[[example]]
-name = "egui"
-required-features = ["bevy_egui"]
-
-[[example]]
-name = "egui_multiple_windows"
-required-features = ["bevy_egui"]
+[patch.crates-io.bevy]
+git = "https://github.com/n-drw/bevy.git"
