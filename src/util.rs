@@ -28,7 +28,7 @@ pub fn update_orbit_transform(
 ) {
     let mut new_transform = Transform::IDENTITY;
     if let Projection::Orthographic(ref mut p) = *projection {
-        p.scaling_mode = bevy::render::camera::ScalingMode::FixedHorizontal(radius);
+        p.scaling_mode = bevy::render::camera::ScalingMode::FixedHorizontal { viewport_width: radius };
         // (near + far) / 2.0 ensures that objects near `focus` are not clipped
         radius = (p.near + p.far) / 2.0;
     }
