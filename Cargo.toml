@@ -20,3 +20,6 @@ bevy = { version = "0.15.0", default-features = false, features = [
 [dev-dependencies]
 bevy = { version = "0.15.0" }
 float-cmp = "0.9.0"
+
+[patch.crates-io.bevy]
+git = "https://github.com/n-drw/bevy"
