@@ -8,18 +8,12 @@ use bevy::prelude::*;
 use bevy::render::camera::{CameraUpdateSystem, RenderTarget};
 use bevy::transform::TransformSystem;
 use bevy::window::{PrimaryWindow, WindowRef};
-#[cfg(feature = "bevy_egui")]
-use bevy_egui::EguiSet;
 
-#[cfg(feature = "bevy_egui")]
-pub use crate::egui::{EguiFocusIncludesHover, EguiWantsFocus};
 use crate::input::{mouse_key_tracker, MouseKeyTracker};
 pub use crate::touch::TouchControls;
 use crate::touch::{touch_tracker, TouchGestures, TouchTracker};
 use crate::traits::OptionalClamp;
 
-#[cfg(feature = "bevy_egui")]
-mod egui;
 mod input;
 mod touch;
 mod traits;
@@ -60,18 +54,6 @@ impl Plugin for PanOrbitCameraPlugin {
                     .before(TransformSystem::TransformPropagate)
                     .before(CameraUpdateSystem),
             );
-
-        #[cfg(feature = "bevy_egui")]
-        {
-            app.init_resource::<EguiWantsFocus>()
-                .init_resource::<EguiFocusIncludesHover>()
-                .add_systems(
-                    PostUpdate,
-                    egui::check_egui_wants_focus
-                        .after(EguiSet::InitContexts)
-                        .before(PanOrbitCameraSystemSet),
-                );
-        }
     }
 }
 
@@ -324,7 +306,6 @@ fn active_viewport_data(
     primary_windows: Query<&Window, With<PrimaryWindow>>,
     other_windows: Query<&Window, Without<PrimaryWindow>>,
     orbit_cameras: Query<(Entity, &Camera, &PanOrbitCamera)>,
-    #[cfg(feature = "bevy_egui")] egui_wants_focus: Res<EguiWantsFocus>,
 ) {
     let mut new_resource = ActiveCameraData::default();
     let mut max_cam_order = 0;
@@ -341,10 +322,7 @@ fn active_viewport_data(
             has_input = true;
             #[allow(unused_mut, unused_assignments)]
             let mut should_get_input = true;
-            #[cfg(feature = "bevy_egui")]
-            {
-                should_get_input = !egui_wants_focus.prev && !egui_wants_focus.curr;
-            }
+
             if should_get_input {
                 // First check if cursor is in the same window as this camera
                 if let RenderTarget::Window(win_ref) = camera.target {
