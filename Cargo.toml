@@ -12,13 +12,13 @@ homepage = "https://github.com/Plonq/bevy_panorbit_camera"
 readme = "README.md"
 
 [dependencies]
-bevy = { version = "0.15.0", default-features = false, features = [
+bevy = { git = "https://github.com/bevyengine/bevy", default-features = false, features = [
     "bevy_render",
     "bevy_window",
 ] }
 
 [dev-dependencies]
-bevy = { version = "0.15.0" }
+bevy = { git = "https://github.com/bevyengine/bevy" }
 float-cmp = "0.9.0"
 
 [patch.crates-io.bevy]
